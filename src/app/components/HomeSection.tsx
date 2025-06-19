@@ -35,6 +35,7 @@ export default function HomeSection() {
   const aboutTitleRef = useRef<HTMLHeadingElement>(null);
   const projetosTitleRef = useRef<HTMLHeadingElement>(null);
   const skillsTitleRef = useRef<HTMLHeadingElement>(null);
+  const skillsSpanRef = useRef<HTMLSpanElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particleId = useRef(0);
   const [isClient, setIsClient] = useState(false);
@@ -184,9 +185,14 @@ export default function HomeSection() {
             if (iconRef.current) {
               iconRef.current.style.display = 'block';
               iconRef.current.style.position = 'fixed';
+              let leftValue = rect.left - 4 - iconRef.current.offsetWidth;
+              if (ref === skillsTitleRef && skillsSpanRef.current) {
+                const spanRect = skillsSpanRef.current.getBoundingClientRect();
+                leftValue = spanRect.right + 4;
+              }
               gsap.to(iconRef.current, {
                 top: rect.top,
-                left: rect.left - 16 - iconRef.current.offsetWidth,
+                left: leftValue,
                 duration: 0.4,
                 ease: 'power2.out',
                 onUpdate: () => {
@@ -227,7 +233,7 @@ export default function HomeSection() {
             src="/reactjs.png"
             alt="React Icon"
             className="w-10 h-10 object-contain rounded-full p-1 shadow-lg"
-            style={{ background: 'transparent', border: 'none' }}
+            style={{ background: 'transparent', border: 'none', animation: 'spin 20s linear infinite' }}
           />
         </div>
       )}
@@ -259,7 +265,7 @@ export default function HomeSection() {
       <Start containerRef={startRef} titleRef={startTitleRef as React.RefObject<HTMLHeadingElement>} />
       <About containerRef={aboutRef} titleRef={aboutTitleRef as React.RefObject<HTMLHeadingElement>} />
       <MyProjects containerRef={projetosRef} titleRef={projetosTitleRef as React.RefObject<HTMLHeadingElement>} />
-      <MySkills ref={skillsRef} titleRef={skillsTitleRef as React.RefObject<HTMLHeadingElement>} />
+      <MySkills ref={skillsRef} titleRef={skillsTitleRef as React.RefObject<HTMLHeadingElement>} skillSpanRef={skillsSpanRef as React.RefObject<HTMLSpanElement>} />
     </section>
   );
 }
