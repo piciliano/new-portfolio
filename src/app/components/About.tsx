@@ -7,10 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface AboutProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const About = forwardRef<HTMLDivElement, AboutProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
 
@@ -73,7 +74,10 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
           ref={textRef}
           className="md:w-3/5 space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed text-center md:text-left"
         >
-          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+          <h2
+            ref={titleRef}
+            className="text-4xl font-bold text-indigo-600 dark:text-indigo-400"
+          >
             Sobre mim
           </h2>
           <p>
