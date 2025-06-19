@@ -146,7 +146,7 @@ export default function HomeSection() {
         trigger: document.body,
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.2,
+        scrub: 2,
       },
     });
 
