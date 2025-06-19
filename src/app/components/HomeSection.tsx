@@ -39,6 +39,7 @@ export default function HomeSection() {
   const skillsSpanRef = useRef<HTMLSpanElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const contactTitleRef = useRef<HTMLHeadingElement>(null);
+  const contactSpanRef = useRef<HTMLSpanElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particleId = useRef(0);
   const [isClient, setIsClient] = useState(false);
@@ -201,6 +202,10 @@ export default function HomeSection() {
                 const spanRect = skillsSpanRef.current.getBoundingClientRect();
                 leftValue = spanRect.right + 4;
               }
+              if (ref === contactTitleRef && contactSpanRef.current) {
+                const spanRect = contactSpanRef.current.getBoundingClientRect();
+                leftValue = spanRect.right + 4;
+              }
               gsap.to(iconRef.current, {
                 top: rect.top,
                 left: leftValue,
@@ -308,8 +313,9 @@ export default function HomeSection() {
         skillSpanRef={skillsSpanRef as React.RefObject<HTMLSpanElement>}
       />
       <Contact
-        containerRef={contactRef}
+        containerRef={contactRef as React.RefObject<HTMLDivElement>}
         titleRef={contactTitleRef as React.RefObject<HTMLHeadingElement>}
+        contactSpanRef={contactSpanRef as React.RefObject<HTMLSpanElement>}
       />
     </section>
   );

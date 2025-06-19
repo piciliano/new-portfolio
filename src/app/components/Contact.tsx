@@ -32,9 +32,10 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 interface ContactProps {
   containerRef?: React.RefObject<HTMLDivElement>;
   titleRef?: React.RefObject<HTMLHeadingElement>;
+  contactSpanRef?: React.RefObject<HTMLSpanElement>;
 }
 
-const Contact: React.FC<ContactProps> = ({ containerRef, titleRef }) => {
+const Contact: React.FC<ContactProps> = ({ containerRef, titleRef, contactSpanRef }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<ContactFormData>({
     firstName: "",
@@ -209,7 +210,7 @@ const Contact: React.FC<ContactProps> = ({ containerRef, titleRef }) => {
           className="text-4xl sm:text-5xl md:text-6xl font-bold text-indigo-600 dark:text-indigo-400 mb-6 sm:mb-8"
         >
           Entre em{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+          <span ref={contactSpanRef} className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
             Contato
           </span>
         </h2>
