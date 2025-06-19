@@ -7,10 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface StartProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const Start = forwardRef<HTMLDivElement, StartProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const monitorRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
@@ -185,7 +186,10 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
         <div ref={textRef} className="md:w-1/2 space-y-8 perspective-1000">
           <div className="space-y-2 transform-style-preserve-3d">
             <span className="text-indigo-500 font-medium tracking-wider transform-style-preserve-3d"></span>
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-3 transform-style-preserve-3d">
+            <h2
+              ref={titleRef}
+              className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-3 transform-style-preserve-3d"
+            >
               Olá, Eu sou o Neto
             </h2>
             <h3 className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300 transform-style-preserve-3d">

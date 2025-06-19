@@ -12,12 +12,12 @@ interface Project {
 
 interface MyProjectsProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
     const descRef = useRef<HTMLParagraphElement>(null);
     const projectCardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
@@ -44,7 +44,7 @@ const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
     useEffect(() => {
       if (!sectionRef.current) return;
 
-      gsap.from([titleRef.current, descRef.current], {
+      gsap.from([titleRef?.current, descRef.current], {
         y: 30,
         opacity: 0,
         duration: 0.8,

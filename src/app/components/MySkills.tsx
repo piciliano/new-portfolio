@@ -53,7 +53,7 @@ const skillsData = [
   { icon: <SiNextdotjs className="text-[#000000]" />, name: "Nextjs" },
 ];
 
-const MySkills = forwardRef<HTMLElement>((_props, ref) => {
+const MySkills = forwardRef<HTMLElement, { titleRef?: React.RefObject<HTMLHeadingElement> }>((props, ref) => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -148,7 +148,7 @@ const MySkills = forwardRef<HTMLElement>((_props, ref) => {
     >
       <div className="w-full max-w-6xl mx-auto">
         <h2
-          ref={headingRef}
+          ref={props.titleRef}
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-4 sm:mb-6"
         >
           Minhas <span className="text-gray-900 dark:text-white">Skills</span>
