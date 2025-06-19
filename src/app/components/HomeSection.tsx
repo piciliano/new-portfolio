@@ -8,6 +8,7 @@ import Start from "./Start";
 import About from "./About";
 import MyProjects from "./MyProjects";
 import MySkills from "./MySkills";
+import Contact from "./Contact";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -36,6 +37,8 @@ export default function HomeSection() {
   const projetosTitleRef = useRef<HTMLHeadingElement>(null);
   const skillsTitleRef = useRef<HTMLHeadingElement>(null);
   const skillsSpanRef = useRef<HTMLSpanElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+  const contactTitleRef = useRef<HTMLHeadingElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particleId = useRef(0);
   const [isClient, setIsClient] = useState(false);
@@ -151,7 +154,8 @@ export default function HomeSection() {
       startRef.current &&
       aboutRef.current &&
       projetosRef.current &&
-      skillsRef.current
+      skillsRef.current &&
+      contactRef.current
     ) {
       tl.to(startRef.current, { y: -150, scale: 1.05, ease: "sine.inOut" }, 0);
       tl.to(aboutRef.current, { y: -80, scale: 1.03, ease: "sine.inOut" }, 0);
@@ -161,6 +165,7 @@ export default function HomeSection() {
         0
       );
       tl.to(skillsRef.current, { y: -70, scale: 1.03, ease: "sine.inOut" }, 0);
+      tl.to(contactRef.current, { y: -50, scale: 1.02, ease: "sine.inOut" }, 0);
     }
 
     return () => {
@@ -180,6 +185,7 @@ export default function HomeSection() {
       aboutTitleRef,
       projetosTitleRef,
       skillsTitleRef,
+      contactTitleRef,
     ];
     const handleScroll = () => {
       let found = false;
@@ -300,6 +306,10 @@ export default function HomeSection() {
         ref={skillsRef}
         titleRef={skillsTitleRef as React.RefObject<HTMLHeadingElement>}
         skillSpanRef={skillsSpanRef as React.RefObject<HTMLSpanElement>}
+      />
+      <Contact
+        containerRef={contactRef}
+        titleRef={contactTitleRef as React.RefObject<HTMLHeadingElement>}
       />
     </section>
   );
