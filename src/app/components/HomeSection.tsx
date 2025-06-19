@@ -175,7 +175,12 @@ export default function HomeSection() {
 
   useEffect(() => {
     if (!isClient) return;
-    const titleRefs = [startTitleRef, aboutTitleRef, projetosTitleRef, skillsTitleRef];
+    const titleRefs = [
+      startTitleRef,
+      aboutTitleRef,
+      projetosTitleRef,
+      skillsTitleRef,
+    ];
     const handleScroll = () => {
       let found = false;
       for (const ref of titleRefs) {
@@ -183,8 +188,8 @@ export default function HomeSection() {
           const rect = ref.current.getBoundingClientRect();
           if (rect.bottom > 0 && rect.top < window.innerHeight) {
             if (iconRef.current) {
-              iconRef.current.style.display = 'block';
-              iconRef.current.style.position = 'fixed';
+              iconRef.current.style.display = "block";
+              iconRef.current.style.position = "fixed";
               let leftValue = rect.left - 4 - iconRef.current.offsetWidth;
               if (ref === skillsTitleRef && skillsSpanRef.current) {
                 const spanRect = skillsSpanRef.current.getBoundingClientRect();
@@ -194,14 +199,18 @@ export default function HomeSection() {
                 top: rect.top,
                 left: leftValue,
                 duration: 0.4,
-                ease: 'power2.out',
+                ease: "power2.out",
                 onUpdate: () => {
                   if (iconRef.current && particlesContainerRef.current) {
                     const iconRect = iconRef.current.getBoundingClientRect();
-                    particlesContainerRef.current.style.top = `${iconRect.top + iconRect.height / 2}px`;
-                    particlesContainerRef.current.style.left = `${iconRect.left + iconRect.width / 2}px`;
+                    particlesContainerRef.current.style.top = `${
+                      iconRect.top + iconRect.height / 2
+                    }px`;
+                    particlesContainerRef.current.style.left = `${
+                      iconRect.left + iconRect.width / 2
+                    }px`;
                   }
-                }
+                },
               });
             }
             found = true;
@@ -210,15 +219,15 @@ export default function HomeSection() {
         }
       }
       if (!found && iconRef.current) {
-        iconRef.current.style.display = 'none';
+        iconRef.current.style.display = "none";
       }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
     handleScroll();
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
   }, [isClient]);
 
@@ -227,13 +236,24 @@ export default function HomeSection() {
       {isClient && (
         <div
           ref={iconRef}
-          style={{ position: 'fixed', zIndex: 1000, display: 'none', pointerEvents: 'none', border: 'none', background: 'transparent' }}
+          style={{
+            position: "fixed",
+            zIndex: 1000,
+            display: "none",
+            pointerEvents: "none",
+            border: "none",
+            background: "transparent",
+          }}
         >
           <img
             src="/reactjs.png"
             alt="React Icon"
             className="w-10 h-10 object-contain rounded-full p-1 shadow-lg"
-            style={{ background: 'transparent', border: 'none', animation: 'spin 20s linear infinite' }}
+            style={{
+              background: "transparent",
+              border: "none",
+              animation: "spin 20s linear infinite",
+            }}
           />
         </div>
       )}
@@ -254,7 +274,9 @@ export default function HomeSection() {
                 width: `${particle.size}px`,
                 height: `${particle.size}px`,
                 opacity: particle.alpha,
-                boxShadow: `0 0 ${particle.size * 2}px ${particle.size / 2}px rgba(97, 218, 251, ${particle.alpha * 0.7})`,
+                boxShadow: `0 0 ${particle.size * 2}px ${
+                  particle.size / 2
+                }px rgba(97, 218, 251, ${particle.alpha * 0.7})`,
                 transform: "translate(-50%, -50%)",
               }}
             />
@@ -262,10 +284,23 @@ export default function HomeSection() {
         </div>
       )}
 
-      <Start containerRef={startRef} titleRef={startTitleRef as React.RefObject<HTMLHeadingElement>} />
-      <About containerRef={aboutRef} titleRef={aboutTitleRef as React.RefObject<HTMLHeadingElement>} />
-      <MyProjects containerRef={projetosRef} titleRef={projetosTitleRef as React.RefObject<HTMLHeadingElement>} />
-      <MySkills ref={skillsRef} titleRef={skillsTitleRef as React.RefObject<HTMLHeadingElement>} skillSpanRef={skillsSpanRef as React.RefObject<HTMLSpanElement>} />
+      <Start
+        containerRef={startRef}
+        titleRef={startTitleRef as React.RefObject<HTMLHeadingElement>}
+      />
+      <About
+        containerRef={aboutRef}
+        titleRef={aboutTitleRef as React.RefObject<HTMLHeadingElement>}
+      />
+      <MyProjects
+        containerRef={projetosRef}
+        titleRef={projetosTitleRef as React.RefObject<HTMLHeadingElement>}
+      />
+      <MySkills
+        ref={skillsRef}
+        titleRef={skillsTitleRef as React.RefObject<HTMLHeadingElement>}
+        skillSpanRef={skillsSpanRef as React.RefObject<HTMLSpanElement>}
+      />
     </section>
   );
 }

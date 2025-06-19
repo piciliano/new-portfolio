@@ -17,7 +17,6 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
 
     const [isClient, setIsClient] = useState(false);
 
-    // Conectar ref externa com ref interna:
     const setRefs = (el: HTMLDivElement) => {
       sectionRef.current = el;
       if (typeof containerRef === "function") {
