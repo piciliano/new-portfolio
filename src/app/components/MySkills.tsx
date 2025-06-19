@@ -144,42 +144,47 @@ const MySkills = forwardRef<HTMLElement>((_props, ref) => {
         }
       }}
       id="skills"
-      className="relative max-w-7xl mx-auto px-6 py-24 md:py-32 text-center overflow-hidden"
+      className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32 text-center"
     >
-      <h2
-        ref={headingRef}
-        className="text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-6"
-      >
-        Minhas <span className="text-gray-900 dark:text-white">Skills</span>
-      </h2>
+      <div className="w-full max-w-6xl mx-auto">
+        <h2
+          ref={headingRef}
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-4 sm:mb-6"
+        >
+          Minhas <span className="text-gray-900 dark:text-white">Skills</span>
+        </h2>
 
-      <p
-        ref={textRef}
-        className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-16 text-lg"
-      >
-        Estas são as habilidades e ferramentas que tenho desenvolvido ao longo
-        da minha jornada como desenvolvedor web fullstack. Cada tecnologia
-        representa um passo no meu aprendizado e evolução, desde a criação de
-        interfaces modernas e responsivas até a implementação de sistemas
-        robustos.
-      </p>
+        <p
+          ref={textRef}
+          className="text-gray-700 dark:text-gray-300 mx-auto mb-12 sm:mb-16 text-base sm:text-lg px-2 sm:px-4 max-w-[90%] sm:max-w-[85%] md:max-w-3xl"
+        >
+          Estas são as habilidades e ferramentas que tenho desenvolvido ao longo
+          da minha jornada como desenvolvedor web fullstack. Cada tecnologia
+          representa um passo no meu aprendizado e evolução, desde a criação de
+          interfaces modernas e responsivas até a implementação de sistemas
+          robustos.
+        </p>
 
-      <div ref={sliderRef} className="relative w-full py-8 overflow-hidden">
-        <div className="flex animate-infinite-scroll gap-8 w-max">
-          {[...skillsData, ...skillsData].map((skill, i) => (
-            <div
-              key={`${skill.name}-${i}`}
-              ref={(el) => {
-                skillIconsRef.current[i] = el;
-              }}
-              className="flex flex-col items-center justify-center w-24 h-24 text-4xl rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              {skill.icon}
-              <span className="mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-                {skill.name}
-              </span>
-            </div>
-          ))}
+        <div
+          ref={sliderRef}
+          className="relative w-full py-4 sm:py-8 overflow-x-hidden"
+        >
+          <div className="flex animate-infinite-scroll gap-4 sm:gap-6 md:gap-8 w-max">
+            {[...skillsData, ...skillsData].map((skill, i) => (
+              <div
+                key={`${skill.name}-${i}`}
+                ref={(el) => {
+                  skillIconsRef.current[i] = el;
+                }}
+                className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl sm:text-3xl md:text-4xl rounded-lg sm:rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg sm:shadow-lg sm:hover:shadow-xl transition-shadow duration-300"
+              >
+                {skill.icon}
+                <span className="mt-1 sm:mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
+                  {skill.name}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
