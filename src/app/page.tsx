@@ -1,6 +1,6 @@
-import Header from "@/app/components/Header";
-import HomeSection from "./components/HomeSection";
-import Footer from "./components/Footer";
+import HomeSection from "@/app/components/home/HomeSection";
+import Footer from "@/app/components/footer/Footer";
+import Header from "@/app/components/header/Header";
 
 export default function Home() {
   return (
