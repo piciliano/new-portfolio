@@ -94,7 +94,6 @@ export default function useContactAnimation(
         input.addEventListener("mouseenter", onMouseEnter);
         input.addEventListener("mouseleave", onMouseLeave);
 
-        // Remove os listeners no cleanup
         return () => {
           input.removeEventListener("mouseenter", onMouseEnter);
           input.removeEventListener("mouseleave", onMouseLeave);
