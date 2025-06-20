@@ -1,15 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { throttle } from "lodash";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
-      setScrolled(window.scrollY > 50);
-    }, 100);
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -20,6 +16,25 @@ export default function Header() {
     ? "bg-gradient-to-b from-black/80 to-black/60 backdrop-blur-lg shadow-lg border-b border-indigo-500/20 py-2"
     : "bg-transparent py-4";
 
+  const menuItems = [
+    { label: "Início", id: "start" },
+    { label: "Sobre", id: "about" },
+    { label: "Meus Projetos", id: "myProjects" },
+    { label: "Skills", id: "skills" },
+    { label: "Contato", id: "contact" },
+  ];
+
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute("href");
+    if (!href) return;
+    const id = href.substring(1);
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className={`${base} ${style}`}>
       <nav className="container mx-auto flex justify-between items-center px-6 md:px-8">
@@ -27,19 +42,18 @@ export default function Header() {
           Neto Developer
         </div>
         <ul className="hidden md:flex space-x-8 text-lg">
-          {["Início", "Sobre", "Projetos", "Tecnologias", "Contato"].map(
-            (item) => (
-              <li key={item}>
-                <a
-                  href={`#${item}`}
-                  className="relative text-white/90 hover:text-white transition-colors group"
-                >
-                  {item}
-                  <span className="block h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 absolute bottom-[-4px] left-0 right-0 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                </a>
-              </li>
-            )
-          )}
+          {menuItems.map(({ label, id }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                onClick={handleScrollToSection}
+                className="relative text-white/90 hover:text-white transition-colors group"
+              >
+                {label}
+                <span className="block h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 absolute bottom-[-4px] left-0 right-0 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+              </a>
+            </li>
+          ))}
         </ul>
 
         <button className="md:hidden text-white">

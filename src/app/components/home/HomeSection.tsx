@@ -4,11 +4,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
-import Start from "./Start";
-import About from "./About";
-import MyProjects from "./MyProjects";
-import MySkills from "./MySkills";
-import Contact from "./Contact";
+import Start from "@/app/components/start/Start";
+import About from "@/app/components/about/About";
+import MyProjects from "@/app/components/myProjects/MyProjects";
+import MySkills from "@/app/components/mySkills/MySkills";
+import Contact from "@/app/components/contact/Contact";
+
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -260,10 +262,12 @@ export default function HomeSection() {
             background: "transparent",
           }}
         >
-          <img
+          <Image
             src="/reactjs.png"
             alt="React Icon"
-            className="w-10 h-10 object-contain rounded-full p-1 shadow-lg"
+            width={40}
+            height={40}
+            className="rounded-full p-1 shadow-lg"
             style={{
               background: "transparent",
               border: "none",

@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
         <div className="flex space-x-6 mb-4">
           <a
-            href="https://github.com/neto"
+            href="https://github.com/piciliano"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/70 hover:text-indigo-400 transition-colors duration-300 text-xl"
@@ -18,7 +18,7 @@ export default function Footer() {
             <FiGithub />
           </a>
           <a
-            href="https://linkedin.com/in/neto"
+            href="https://linkedin.com/in/picilianovasconcelos"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/70 hover:text-indigo-400 transition-colors duration-300 text-xl"
@@ -27,14 +27,14 @@ export default function Footer() {
             <FiLinkedin />
           </a>
           <a
-            href="mailto:neto@example.com"
+            href="mailto:picilianovasconcelos@gmail.com"
             className="text-white/70 hover:text-indigo-400 transition-colors duration-300 text-xl"
             aria-label="Email"
           >
             <FiMail />
           </a>
           <a
-            href="https://instagram.com/neto"
+            href="https://instagram.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/70 hover:text-indigo-400 transition-colors duration-300 text-xl"
@@ -43,7 +43,7 @@ export default function Footer() {
             <FiInstagram />
           </a>
           <a
-            href="https://wa.me/seunumero"
+            href="https://wa.me/5582994300011"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white/70 hover:text-indigo-400 transition-colors duration-300 text-xl"

@@ -1,7 +1,5 @@
 "use client";
-import React, { forwardRef, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { forwardRef, useRef } from "react";
 import {
   FaReact,
   FaCss3Alt,
@@ -23,9 +21,8 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import SkillIcon from "./SkillIcon";
+import { useSkillsAnimation } from "./useSkillsAnimation";
 
 const skillsData = [
   { icon: <FaReact className="text-[#61DAFB]" />, name: "React" },
@@ -65,83 +62,7 @@ const MySkills = forwardRef<
   const sliderRef = useRef<HTMLDivElement>(null);
   const skillIconsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
-    if (isMobile) return;
-
-    const duration = 0.8;
-    const ease = "power3.out";
-    const stagger = 0.05;
-
-    gsap.from(headingRef.current, {
-      y: 50,
-      opacity: 0,
-      duration,
-      ease,
-      scrollTrigger: {
-        trigger: headingRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    gsap.from(textRef.current, {
-      y: 50,
-      opacity: 0,
-      duration,
-      delay: 0.2,
-      ease,
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    skillIconsRef.current.forEach((icon, i) => {
-      if (!icon) return;
-
-      gsap.from(icon, {
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
-        delay: i * stagger,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: sliderRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-
-      icon.addEventListener("mouseenter", () => {
-        gsap.to(icon, {
-          y: -10,
-          scale: 1.1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-
-      icon.addEventListener("mouseleave", () => {
-        gsap.to(icon, {
-          y: 0,
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      });
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      skillIconsRef.current.forEach((icon) => {
-        if (!icon) return;
-        icon.removeEventListener("mouseenter", () => {});
-        icon.removeEventListener("mouseleave", () => {});
-      });
-    };
-  }, []);
+  useSkillsAnimation(headingRef, textRef, sliderRef, skillIconsRef);
 
   return (
     <section
@@ -160,7 +81,7 @@ const MySkills = forwardRef<
     >
       <div className="w-full max-w-6xl mx-auto">
         <h2
-          ref={props.titleRef}
+          ref={props.titleRef ?? headingRef}
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-4 sm:mb-6"
         >
           Minhas{" "}
@@ -189,18 +110,14 @@ const MySkills = forwardRef<
         >
           <div className="flex animate-infinite-scroll gap-4 sm:gap-6 md:gap-8 w-max">
             {[...skillsData, ...skillsData].map((skill, i) => (
-              <div
+              <SkillIcon
                 key={`${skill.name}-${i}`}
                 ref={(el) => {
                   skillIconsRef.current[i] = el;
                 }}
-                className="flex flex-col items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl sm:text-3xl md:text-4xl rounded-lg sm:rounded-xl md:rounded-2xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg sm:shadow-lg sm:hover:shadow-xl transition-shadow duration-300"
-              >
-                {skill.icon}
-                <span className="mt-1 sm:mt-2 text-xs font-medium text-gray-500 dark:text-gray-400">
-                  {skill.name}
-                </span>
-              </div>
+                icon={skill.icon}
+                name={skill.name}
+              />
             ))}
           </div>
         </div>
