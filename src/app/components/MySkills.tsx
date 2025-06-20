@@ -66,11 +66,18 @@ const MySkills = forwardRef<
   const skillIconsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+    if (isMobile) return;
+
+    const duration = 0.8;
+    const ease = "power3.out";
+    const stagger = 0.05;
+
     gsap.from(headingRef.current, {
       y: 50,
       opacity: 0,
-      duration: 0.8,
-      ease: "power3.out",
+      duration,
+      ease,
       scrollTrigger: {
         trigger: headingRef.current,
         start: "top 80%",
@@ -81,9 +88,9 @@ const MySkills = forwardRef<
     gsap.from(textRef.current, {
       y: 50,
       opacity: 0,
-      duration: 0.8,
+      duration,
       delay: 0.2,
-      ease: "power3.out",
+      ease,
       scrollTrigger: {
         trigger: textRef.current,
         start: "top 80%",
@@ -98,7 +105,7 @@ const MySkills = forwardRef<
         y: 30,
         opacity: 0,
         duration: 0.6,
-        delay: i * 0.05,
+        delay: i * stagger,
         ease: "back.out(1.7)",
         scrollTrigger: {
           trigger: sliderRef.current,

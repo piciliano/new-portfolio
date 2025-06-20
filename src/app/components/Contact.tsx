@@ -58,13 +58,20 @@ const Contact: React.FC<ContactProps> = ({ containerRef, titleRef, contactSpanRe
   const finalTitleRef = titleRef || localTitleRef;
 
   useEffect(() => {
+    const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+    if (isMobile) return;
+
+    const duration = 1;
+    const ease = "elastic.out(1, 0.5)";
+    const stagger = 0.3;
+
     const ctx = gsap.context(() => {
       gsap.from([finalTitleRef.current, descriptionRef.current], {
         y: 50,
         opacity: 0,
-        duration: 1,
-        stagger: 0.3,
-        ease: "elastic.out(1, 0.5)",
+        duration,
+        stagger,
+        ease,
         scrollTrigger: {
           trigger: finalContainerRef.current,
           start: "top 80%",
@@ -92,7 +99,7 @@ const Contact: React.FC<ContactProps> = ({ containerRef, titleRef, contactSpanRe
           x: -50,
           opacity: 0,
           duration: 0.8,
-          delay: 0.1 * i,
+          delay: i * 0.1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: input,

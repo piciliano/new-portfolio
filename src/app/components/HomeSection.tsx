@@ -43,9 +43,13 @@ export default function HomeSection() {
   const [particles, setParticles] = useState<Particle[]>([]);
   const particleId = useRef(0);
   const [isClient, setIsClient] = useState(false);
+  const [enableParticles, setEnableParticles] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    if (typeof window !== "undefined") {
+      setEnableParticles(window.innerWidth > 600);
+    }
   }, []);
 
   useEffect(() => {
@@ -244,7 +248,7 @@ export default function HomeSection() {
 
   return (
     <section className="relative z-10 flex flex-col gap-20 max-w-7xl mx-auto px-6 min-h-[200vh]">
-      {isClient && (
+      {isClient && enableParticles && (
         <div
           ref={iconRef}
           style={{
@@ -269,7 +273,7 @@ export default function HomeSection() {
         </div>
       )}
 
-      {isClient && (
+      {isClient && enableParticles && (
         <div
           ref={particlesContainerRef}
           className="fixed z-40 pointer-events-none"

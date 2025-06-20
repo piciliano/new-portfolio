@@ -31,6 +31,13 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
     useEffect(() => {
       setIsClient(true);
 
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+      if (isMobile) return;
+
+      const duration = isMobile ? 0.5 : 1.3;
+      const ease = isMobile ? "power1.out" : "power3.out";
+      const stagger = isMobile ? 0.08 : 0.2;
+
       if (!sectionRef.current || !textRef.current) return;
 
       gsap.from(sectionRef.current, {
@@ -41,8 +48,8 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
         },
         opacity: 0,
         y: 50,
-        duration: 1.3,
-        ease: "power3.out",
+        duration,
+        ease,
       });
 
       const elements = textRef.current.querySelectorAll("h2, p");
@@ -56,9 +63,9 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
           },
           opacity: 0,
           y: 30,
-          stagger: 0.2,
-          duration: 1,
-          ease: "power2.out",
+          stagger,
+          duration: isMobile ? 0.5 : 1,
+          ease: isMobile ? "power1.out" : "power2.out",
         });
       }
     }, []);
