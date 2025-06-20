@@ -60,7 +60,7 @@ const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
         title: "PrimeFlix",
         link: "https://prime-flix-zeta-one.vercel.app/",
         image: "/PrimeFlix.png",
-        tags: ["Next.js", "Movies", "TMDB API"],
+        tags: ["Movies"],
       },
       {
         title: "Simple To-Do List",
@@ -72,14 +72,9 @@ const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
         title: "Projeto Arnia",
         link: "https://github.com/piciliano/ProjetoArnia",
         image: "/arnia.png",
-        tags: ["Fullstack", "Education"],
+        tags: ["To-Do"],
       },
-      {
-        title: "Simple Album",
-        link: "https://simple-album.vercel.app/",
-        image: "/simple-album.png",
-        tags: ["Photo Gallery", "UI/UX"],
-      },
+
       {
         title: "GitFinder",
         link: "https://github-finder-kkan.vercel.app/",
@@ -90,7 +85,13 @@ const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
         title: "Protocol",
         link: "https://protocol-frontend.vercel.app/",
         image: "/finalpng1.png",
-        tags: ["Web3", "Blockchain"],
+        tags: ["React", "Typescript", "Fullstack"],
+      },
+      {
+        title: "Simple Album",
+        link: "https://simple-album.vercel.app/",
+        image: "/simple-album.png",
+        tags: ["Photo Gallery", "UI/UX"],
       },
     ];
 

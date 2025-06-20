@@ -43,7 +43,8 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
               alt="Foto do Neto"
               fill
               className="object-cover"
-              priority={true} // opcional, pra carregar rápido no LCP
+              priority={true}
+              sizes="(min-width: 768px) 16rem, 12rem"
             />
           </div>
         </div>

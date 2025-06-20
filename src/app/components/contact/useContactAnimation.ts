@@ -18,12 +18,22 @@ export default function useContactAnimation(
     const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
     if (isMobile) return;
 
+    if (
+      !containerRef.current ||
+      !titleRef.current ||
+      !descriptionRef.current ||
+      !formRef.current ||
+      !inputRefs.current
+    ) {
+      return;
+    }
+
     const duration = 1;
     const ease = "elastic.out(1, 0.5)";
     const stagger = 0.3;
 
     const ctx = gsap.context(() => {
-      gsap.from([titleRef.current, descriptionRef.current], {
+      gsap.from([titleRef.current, descriptionRef.current].filter(Boolean), {
         y: 50,
         opacity: 0,
         duration,
@@ -65,21 +75,30 @@ export default function useContactAnimation(
           },
         });
 
-        input.addEventListener("mouseenter", () => {
+        const onMouseEnter = () => {
           gsap.to(input, {
             scale: 1.02,
             boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
             duration: 0.3,
           });
-        });
+        };
 
-        input.addEventListener("mouseleave", () => {
+        const onMouseLeave = () => {
           gsap.to(input, {
             scale: 1,
             boxShadow: "none",
             duration: 0.3,
           });
-        });
+        };
+
+        input.addEventListener("mouseenter", onMouseEnter);
+        input.addEventListener("mouseleave", onMouseLeave);
+
+        // Remove os listeners no cleanup
+        return () => {
+          input.removeEventListener("mouseenter", onMouseEnter);
+          input.removeEventListener("mouseleave", onMouseLeave);
+        };
       });
     }, containerRef);
 

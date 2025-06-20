@@ -163,8 +163,9 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
                 alt={tech.alt}
                 fill
                 className="object-contain"
-                sizes="100vw"
+                sizes="(max-width: 768px) 5rem, 6rem"
               />
+
               <div className="absolute inset-0 rounded-2xl border-none hover:border-2 hover:border-indigo-400 transition-all duration-300"></div>
             </div>
           ))}
