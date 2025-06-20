@@ -45,7 +45,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* globals.css */
 @keyframes infinite-scroll {
   0% {
     transform: translateX(0);
@@ -63,4 +62,32 @@ html {
   .animate-infinite-scroll {
     animation: none;
   }
+}
+
+.sparkle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: white;
+  box-shadow: 0 0 6px 2px #00d8ff;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+.fixed {
+  z-index: 50 !important;
 }

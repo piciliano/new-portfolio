@@ -7,10 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface StartProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const Start = forwardRef<HTMLDivElement, StartProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const monitorRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,13 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
     useEffect(() => {
       setIsClient(true);
 
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+      if (isMobile) return;
+
+      const duration = isMobile ? 0.5 : 1.5;
+      const ease = isMobile ? "power1.out" : "power3.out";
+      const stagger = isMobile ? 0.08 : 0.15;
+
       if (!sectionRef.current) return;
 
       gsap.from(sectionRef.current, {
@@ -42,8 +50,8 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
         },
         opacity: 0,
         y: 80,
-        duration: 1.5,
-        ease: "power3.out",
+        duration,
+        ease,
       });
 
       const elements = textRef.current?.querySelectorAll("h2, h3, p");
@@ -59,9 +67,9 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
           x: -50,
           rotationY: 45,
           transformOrigin: "left center",
-          stagger: 0.15,
-          duration: 1,
-          ease: "back.out(1.2)",
+          stagger,
+          duration: isMobile ? 0.5 : 1,
+          ease: isMobile ? "power1.out" : "back.out(1.2)",
         });
       }
 
@@ -185,7 +193,10 @@ const Start = forwardRef<HTMLDivElement, StartProps>(
         <div ref={textRef} className="md:w-1/2 space-y-8 perspective-1000">
           <div className="space-y-2 transform-style-preserve-3d">
             <span className="text-indigo-500 font-medium tracking-wider transform-style-preserve-3d"></span>
-            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-3 transform-style-preserve-3d">
+            <h2
+              ref={titleRef}
+              className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-3 transform-style-preserve-3d"
+            >
               Olá, Eu sou o Neto
             </h2>
             <h3 className="text-2xl md:text-3xl font-semibold text-gray-700 dark:text-gray-300 transform-style-preserve-3d">

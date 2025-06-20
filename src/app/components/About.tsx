@@ -7,16 +7,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface AboutProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const About = forwardRef<HTMLDivElement, AboutProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
 
     const [isClient, setIsClient] = useState(false);
 
-    // Conectar ref externa com ref interna:
     const setRefs = (el: HTMLDivElement) => {
       sectionRef.current = el;
       if (typeof containerRef === "function") {
@@ -31,6 +31,13 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
     useEffect(() => {
       setIsClient(true);
 
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+      if (isMobile) return;
+
+      const duration = isMobile ? 0.5 : 1.3;
+      const ease = isMobile ? "power1.out" : "power3.out";
+      const stagger = isMobile ? 0.08 : 0.2;
+
       if (!sectionRef.current || !textRef.current) return;
 
       gsap.from(sectionRef.current, {
@@ -41,8 +48,8 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
         },
         opacity: 0,
         y: 50,
-        duration: 1.3,
-        ease: "power3.out",
+        duration,
+        ease,
       });
 
       const elements = textRef.current.querySelectorAll("h2, p");
@@ -56,9 +63,9 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
           },
           opacity: 0,
           y: 30,
-          stagger: 0.2,
-          duration: 1,
-          ease: "power2.out",
+          stagger,
+          duration: isMobile ? 0.5 : 1,
+          ease: isMobile ? "power1.out" : "power2.out",
         });
       }
     }, []);
@@ -73,7 +80,10 @@ const About = forwardRef<HTMLDivElement, AboutProps>(
           ref={textRef}
           className="md:w-3/5 space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed text-center md:text-left"
         >
-          <h2 className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+          <h2
+            ref={titleRef}
+            className="text-4xl font-bold text-indigo-600 dark:text-indigo-400"
+          >
             Sobre mim
           </h2>
           <p>

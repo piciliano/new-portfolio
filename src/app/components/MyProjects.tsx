@@ -12,12 +12,12 @@ interface Project {
 
 interface MyProjectsProps {
   containerRef?: ForwardedRef<HTMLDivElement>;
+  titleRef?: React.RefObject<HTMLHeadingElement>;
 }
 
 const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
-  ({ containerRef }, ref) => {
+  ({ containerRef, titleRef }, ref) => {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
     const descRef = useRef<HTMLParagraphElement>(null);
     const projectCardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
@@ -42,14 +42,21 @@ const MyProjects = forwardRef<HTMLDivElement, MyProjectsProps>(
     };
 
     useEffect(() => {
+      const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
+      if (isMobile) return;
+
+      const duration = 0.8;
+      const ease = "power3.out";
+      const stagger = 0.2;
+
       if (!sectionRef.current) return;
 
-      gsap.from([titleRef.current, descRef.current], {
+      gsap.from([titleRef?.current, descRef.current], {
         y: 30,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
+        duration,
+        stagger,
+        ease,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
